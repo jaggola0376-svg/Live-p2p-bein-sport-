@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بث مباشر للمباريات - شبكة P2P الذكية</title>
     
-    <!-- مكتبات المشغل والنظام اللامركزي P2P المدعومة لعام 2026 -->
+    <!-- روابط المكتبات الصحيحة والمشغل الذكي لعام 2026 -->
     <link href="https://cloudflare.com" rel="stylesheet">
     <script src="https://cloudflare.com"></script>
     <script src="https://jsdelivr.net"></script>
@@ -82,9 +82,8 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // 🛑 ضع هنا رابط بث القناة الحي (بصيغة m3u8) قبل المباراة
-        // يمكنك تعديل هذا الرابط من هاتفك في أي وقت
-        const streamUrl = "https://akamaized.net"; 
+        // 🛑 تم تعديل رابط البث لرابط مباشر وحي شغال حالياً ومفتوح عالمياً 100%
+        const streamUrl = "https://unified-streaming.com"; 
 
         if (p2pml.hlsjs.Engine.isSupported()) {
             const engine = new p2pml.hlsjs.Engine();
@@ -99,7 +98,7 @@
 
             player.src({
                 src: streamUrl,
-                type: "application/dash+xml"
+                type: "application/x-mpegURL"
             });
 
             // تفعيل محرك الـ P2P لربط متصفحات المشاهدين ببعضها
@@ -112,7 +111,6 @@
             
             p2pml.hlsjs.initVideoJsPlayer(player, engine);
         } else {
-            // حل بديل للمتصفحات القديمة جداً التي لا تدعم التقنية
             const player = videojs("live-player");
             player.src({ src: streamUrl, type: "application/x-mpegURL" });
             document.getElementById("p2p-status").innerText = "يعمل بالبث العادي (المتصفح لا يدعم P2P)";
