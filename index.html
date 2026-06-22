@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بث مباشر للمباريات - شبكة P2P الذكية</title>
+    
+    <!-- مكتبات المشغل والنظام اللامركزي P2P المدعومة لعام 2026 -->
+    <link href="https://cloudflare.com" rel="stylesheet">
+    <script src="https://cloudflare.com"></script>
+    <script src="https://jsdelivr.net"></script>
+    <script src="https://jsdelivr.net"></script>
+    <script src="https://cloudflare.com"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #00ffcc;
+        }
+        .video-box {
+            position: relative;
+            padding-top: 56.25%; /* أبعاد الشاشة 16:9 */
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1);
+        }
+        .video-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .status-bar {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #a0aec0;
+            background: #1a202c;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .badge {
+            color: #00ffcc;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>بث مباشر بدون تقطيع (تقنية P2P اللامركزية)</h1>
+    
+    <div class="video-box">
+        <video id="live-player" class="video-js vjs-default-skin vjs-big-play-centered" controls autoplay preload="auto">
+            <p class="vjs-no-js">برجاء تفعيل الجافا سكريبت أو تحديث المتصفح لمشاهدة البث.</p>
+        </video>
+    </div>
+
+    <div class="status-bar">
+        حالة الشبكة: <span class="badge" id="p2p-status">متصل بالبوابة اللامركزية.. جاري دمج الأجهزة المجاورة</span>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // 🛑 ضع هنا رابط بث القناة الحي (بصيغة m3u8) قبل المباراة
+        // يمكنك تعديل هذا الرابط من هاتفك في أي وقت
+        const streamUrl = "https://mux.dev"; 
+
+        if (p2pml.hlsjs.Engine.isSupported()) {
+            const engine = new p2pml.hlsjs.Engine();
+            const player = videojs("live-player", {
+                html5: {
+                    vhs: { overrideNative: true },
+                    nativeVideoTracks: false,
+                    nativeAudioTracks: false,
+                    nativeTextTracks: false
+                }
+            });
+
+            player.src({
+                src: streamUrl,
+                type: "application/x-mpegURL"
+            });
+
+            // تفعيل محرك الـ P2P لربط متصفحات المشاهدين ببعضها
+            engine.on("peerConnect", peer => console.log("تم الربط بجهاز مشاهد آخر:", peer.id));
+            engine.on("pieceBytesDownloaded", (method, size) => {
+                if (method === "p2p") {
+                    document.getElementById("p2p-status").innerText = "مستقر! يتم السحب الآن من أجهزة المشاهدين لتسريع البث منع التقطيع";
+                }
+            });
+            
+            p2pml.hlsjs.initVideoJsPlayer(player, engine);
+        } else {
+            // حل بديل للمتصفحات القديمة جداً التي لا تدعم التقنية
+            const player = videojs("live-player");
+            player.src({ src: streamUrl, type: "application/x-mpegURL" });
+            document.getElementById("p2p-status").innerText = "يعمل بالبث العادي (المتصفح لا يدعم P2P)";
+        }
+    });
+</script>
+
+</body>
+</html>
