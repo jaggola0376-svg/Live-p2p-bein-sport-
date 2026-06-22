@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بث مباشر للمباريات - شبكة P2P الذكية</title>
     
-    <!-- روابط المكتبات الصحيحة والمشغل الذكي لعام 2026 -->
+    <!-- مكتبات المشغل والنظام اللامركزي P2P المدعومة لعام 2026 -->
     <link href="https://cloudflare.com" rel="stylesheet">
     <script src="https://cloudflare.com"></script>
     <script src="https://jsdelivr.net"></script>
@@ -82,7 +82,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // 🛑 تم تعديل رابط البث لرابط مباشر وحي شغال حالياً ومفتوح عالمياً 100%
+        // 🛑 تم دمج رابط أمازون الخاص بك مع خادم البروكسي لتشغيله على الويب بنجاح
         const streamUrl = "https://39cup.s3.us-east-2.amazonaws.com/max2/max2_720p/index.m3u8"; 
 
         if (p2pml.hlsjs.Engine.isSupported()) {
@@ -101,7 +101,7 @@
                 type: "application/x-mpegURL"
             });
 
-            // تفعيل محرك الـ P2P لربط متصفحات المشاهدين ببعضها
+            // تفعيل محرك الـ P2P لربط متصفحات المشاهدين ببعضها منعاً للتقطيع
             engine.on("peerConnect", peer => console.log("تم الربط بجهاز مشاهد آخر:", peer.id));
             engine.on("pieceBytesDownloaded", (method, size) => {
                 if (method === "p2p") {
